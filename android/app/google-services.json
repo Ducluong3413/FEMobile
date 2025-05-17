@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "140744396222",
+    "project_id": "stroke-ai-app",
+    "storage_bucket": "stroke-ai-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140744396222:android:755b4b12505285db6abdef",
+        "android_client_info": {
+          "package_name": "com.example.assistantstroke"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4LTx4-4k7P7fngkpIe4ma2O9Ytd5yPks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
