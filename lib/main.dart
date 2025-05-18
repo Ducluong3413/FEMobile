@@ -1,8 +1,10 @@
 import 'package:assistantstroke/firebase_options.dart';
+import 'package:assistantstroke/providers/notification_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:assistantstroke/page/my_app.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +21,16 @@ void main() async {
   // await FirebaseMessaging.instance.subscribeToTopic('stroke-ai-app');
   // final fcmToken = await FirebaseMessaging.instance.getToken();
   // print('FCM Token: $fcmToken');
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => NotificationProvider()),
+        // Thêm các provider khác nếu có
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 // import 'package:assistantstroke/firebase_options.dart';

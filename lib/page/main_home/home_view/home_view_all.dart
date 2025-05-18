@@ -9,6 +9,7 @@ import 'package:assistantstroke/model/averageall14daynew.dart';
 import 'package:assistantstroke/model/dailyDay.dart';
 import 'package:assistantstroke/model/indicatorModel.dart';
 import 'package:assistantstroke/page/main_home/home_profile/warning_view.dart';
+import 'package:assistantstroke/widgets/notification_button.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_radar_chart/flutter_radar_chart.dart' as radar_chart;
@@ -254,7 +255,7 @@ class _HealthDashboardState extends State<HealthDashboard> {
             tooltip: 'Chọn người thân',
           ),
           IconButton(
-            icon: const Icon(Icons.notifications),
+            icon: const Icon(Icons.warning_rounded),
             onPressed: () {
               Navigator.push(
                 context,
@@ -262,6 +263,7 @@ class _HealthDashboardState extends State<HealthDashboard> {
               );
             },
           ),
+          NotificationButton(),
         ],
       ),
       body:

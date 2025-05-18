@@ -50,4 +50,19 @@ class ApiEndpoints {
 
   // Example thêm endpoint khác
   static const String getPosts = "$baseUrl/Posts";
+
+  // notification mobilenotification
+  static const String getNotification = "$baseUrl/MobileNotification/user";
+  static const String pushNotification = "$baseUrl/MobileNotification/";
+  static String get notificationHub {
+    final domainBase = baseUrl.substring(0, baseUrl.lastIndexOf('/api'));
+    return "$domainBase/notificationHub";
+  }
+
+  // Thông báo Endpoints
+  static const String mobileNotifications = "$baseUrl/MobileNotifications";
+  static String mobileNotificationsForUser(int userId) =>
+      "$mobileNotifications/user/$userId";
+  static String markAsRead(String notificationId) =>
+      "$mobileNotifications/$notificationId/read";
 }
