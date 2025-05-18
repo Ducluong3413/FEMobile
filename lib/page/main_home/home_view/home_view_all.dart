@@ -1,6 +1,7 @@
 import 'package:assistantstroke/controler/data/averageall14day_controller.dart';
 import 'package:assistantstroke/controler/data/dailyDay_controller.dart';
 import 'package:assistantstroke/controler/device_list_controller.dart';
+import 'package:assistantstroke/controler/family_controller.dart';
 import 'package:assistantstroke/controler/indicators_controller.dart';
 import 'package:assistantstroke/controler/usermedicaldatas_controller.dart';
 import 'package:assistantstroke/model/UserMedicalDataResponse.dart';
@@ -11,6 +12,7 @@ import 'package:assistantstroke/page/main_home/home_profile/warning_view.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_radar_chart/flutter_radar_chart.dart' as radar_chart;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HealthDashboard extends StatefulWidget {
   @override
@@ -25,74 +27,143 @@ class _HealthDashboardState extends State<HealthDashboard> {
   bool isLoading = true;
   bool isLoaded = false;
   int? selectedDayIndex;
+  final FamilyController familyController = FamilyController();
+  List<FamilyMember> familyMembers = [];
+  FamilyMember? selectedFamilyMember;
 
   @override
   void initState() {
     super.initState();
     _loadAllData();
+    _loadFamilyMembers();
   }
 
-  Future<void> _loadAllData() async {
-    final deviceController = DeviceController();
-    final devices = await deviceController.getDevices();
-    if (devices.isEmpty) {
-      setState(() {
-        isLoading = false;
-        isLoaded = false;
-      });
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Không có thiết bị nào.')));
-      return;
-    }
+  Future<void> _loadAllData({int? familyUserId}) async {
+    if (familyUserId != null) {
+      print('familyUserId: $familyUserId');
+      final deviceController = DeviceController();
 
-    final deviceId = devices.first.deviceId;
+      final devices = await deviceController.getDevices(familyUserId);
+      if (devices.isEmpty) {
+        setState(() {
+          isLoading = false;
+          isLoaded = false;
+        });
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Không có thiết bị nào.')));
+        return;
+      }
 
-    try {
-      // Fetch all data concurrently
-      final medicalController = UserMedicalDataController();
-      final indicatorController = IndicatorController();
-      final remoteService = RemoteService();
-      final dailyController = RemoteDailyController();
-      final a = await medicalController.fetchUserMedicalData(deviceId);
-      print('a: $a');
+      final deviceId = devices.first.deviceId;
 
-      final b = await indicatorController.fetchIndicatorData();
-      print('b: $b');
-      final c = await remoteService.fetchResults(deviceId);
-      print('c: $c');
-      // final [
-      //   fetchedMedicalData,
-      //   fetchedIndicatorData,
-      //   fetchedResults,
-      // ] = await Future.wait([
-      //   medicalController.fetchUserMedicalData(deviceId),
-      //   indicatorController.fetchIndicatorData(),
-      //   remoteService.fetchResults(deviceId),
-      // ]);
+      try {
+        // Fetch all data concurrently
+        final medicalController = UserMedicalDataController();
+        final indicatorController = IndicatorController();
+        final remoteService = RemoteService();
+        final dailyController = RemoteDailyController();
+        final a = await medicalController.fetchUserMedicalData(deviceId);
+        print('a: $a');
 
-      setState(() {
-        medicalData = a;
-        indicatorData = b;
-        results = c;
-        isLoading = false;
-        isLoaded = true;
-        print('medicalData: $medicalData');
-        print('indicatorData: $indicatorData');
-        print('results: $results');
-      });
-    } catch (e) {
-      print('Lỗi: $e');
-      setState(() {
-        isLoading = false;
-        isLoaded = false;
-      });
+        final b = await indicatorController.fetchIndicatorData(familyUserId);
+        print('b: $b');
+        final c = await remoteService.fetchResults(deviceId);
+        print('c: $c');
+        // final [
+        //   fetchedMedicalData,
+        //   fetchedIndicatorData,
+        //   fetchedResults,
+        // ] = await Future.wait([
+        //   medicalController.fetchUserMedicalData(deviceId),
+        //   indicatorController.fetchIndicatorData(),
+        //   remoteService.fetchResults(deviceId),
+        // ]);
+
+        setState(() {
+          medicalData = a;
+          indicatorData = b;
+          results = c;
+          isLoading = false;
+          isLoaded = true;
+          print('medicalData: $medicalData');
+          print('indicatorData: $indicatorData');
+          print('results: $results');
+        });
+      } catch (e) {
+        print('Lỗi: $e');
+        setState(() {
+          isLoading = false;
+          isLoaded = false;
+        });
+      }
+    } else {
+      print('userId: null');
+      final deviceController = DeviceController();
+      final prefs = await SharedPreferences.getInstance();
+      final userId = prefs.getInt('userId');
+      final devices = await deviceController.getDevices(userId);
+      if (devices.isEmpty) {
+        setState(() {
+          isLoading = false;
+          isLoaded = false;
+        });
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Không có thiết bị nào.')));
+        return;
+      }
+
+      final deviceId = devices.first.deviceId;
+
+      try {
+        // Fetch all data concurrently
+        final medicalController = UserMedicalDataController();
+        final indicatorController = IndicatorController();
+        final remoteService = RemoteService();
+        final dailyController = RemoteDailyController();
+        final a = await medicalController.fetchUserMedicalData(deviceId);
+        print('a: $a');
+
+        final b = await indicatorController.fetchIndicatorData(userId);
+        print('b: $b');
+        final c = await remoteService.fetchResults(deviceId);
+        print('c: $c');
+        // final [
+        //   fetchedMedicalData,
+        //   fetchedIndicatorData,
+        //   fetchedResults,
+        // ] = await Future.wait([
+        //   medicalController.fetchUserMedicalData(deviceId),
+        //   indicatorController.fetchIndicatorData(),
+        //   remoteService.fetchResults(deviceId),
+        // ]);
+
+        setState(() {
+          medicalData = a;
+          indicatorData = b;
+          results = c;
+          isLoading = false;
+          isLoaded = true;
+          print('medicalData: $medicalData');
+          print('indicatorData: $indicatorData');
+          print('results: $results');
+        });
+      } catch (e) {
+        print('Lỗi: $e');
+        setState(() {
+          isLoading = false;
+          isLoaded = false;
+        });
+      }
     }
   }
 
   Future<void> fetchDailyDay(String date) async {
     final deviceController = DeviceController();
-    final devices = await deviceController.getDevices();
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getInt('userId');
+    final devices = await deviceController.getDevices(userId);
     if (devices.isEmpty) {
       setState(() {
         isLoaded = false;
@@ -114,12 +185,74 @@ class _HealthDashboardState extends State<HealthDashboard> {
     });
   }
 
+  Future<void> _loadFamilyMembers() async {
+    try {
+      final members = await familyController.getFamilyMembers();
+      setState(() {
+        familyMembers = members;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lỗi khi tải danh sách người nhà: $e')),
+      );
+    }
+  }
+
+  void _showFamilyMemberDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Chọn Người Thân'),
+          content: Container(
+            width: double.maxFinite,
+            child:
+                familyMembers.isEmpty
+                    ? const Text('Không có người thân nào.')
+                    : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: familyMembers.length,
+                      itemBuilder: (context, index) {
+                        final member = familyMembers[index];
+                        return ListTile(
+                          title: Text(member.name),
+                          subtitle: Text(
+                            '${member.relationshipType} - ${member.email}',
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedFamilyMember = member;
+                              isLoading = true;
+                            });
+                            _loadAllData(familyUserId: member.inviterId);
+                            Navigator.of(context).pop();
+                          },
+                        );
+                      },
+                    ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Đóng'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Quản Lý Hồ Sơ Sức Khỏe'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.family_restroom),
+            onPressed: _showFamilyMemberDialog,
+            tooltip: 'Chọn người thân',
+          ),
           IconButton(
             icon: const Icon(Icons.notifications),
             onPressed: () {

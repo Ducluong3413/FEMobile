@@ -19,6 +19,7 @@ class ApiEndpoints {
   static const String commit = "$baseUrl/User/reset-password";
   static const String change = "$baseUrl/User/change-password";
   static const String update_basic_info = "$baseUrl/User/update-basic-info";
+  static const String user_gps = "$baseUrl/User/user-gps";
   // User
   static const String getUserProfile = "$baseUrl/User/profile";
   static const String updateUserProfile = "$baseUrl/User/update";

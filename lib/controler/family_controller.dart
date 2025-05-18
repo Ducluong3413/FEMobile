@@ -5,23 +5,23 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FamilyMember {
+  final int inviterId;
   final String name;
   final int relationshipId;
   final String email;
   final String relationshipType;
-  final int id;
 
   FamilyMember({
+    required this.inviterId,
     required this.name,
     required this.relationshipId,
     required this.email,
     required this.relationshipType,
-    required this.id,
   });
 
   factory FamilyMember.fromJson(Map<String, dynamic> json) {
     return FamilyMember(
-      id: json['userId'] ?? 0,
+      inviterId: json['inviterId'] ?? 0,
       relationshipId: json['relationshipId'] ?? '',
       name: json['nameInviter'] ?? '',
       email: json['emailInviter'] ?? '',

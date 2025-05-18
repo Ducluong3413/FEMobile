@@ -7,6 +7,7 @@ import 'package:assistantstroke/model/averageall14daynew.dart';
 import 'package:assistantstroke/model/dailyDay.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeHistory extends StatefulWidget {
   @override
@@ -28,7 +29,9 @@ class _HomeHistoryState extends State<HomeHistory> {
 
   fetchResults() async {
     final deviceController = DeviceController();
-    final devices = await deviceController.getDevices();
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getInt('userId');
+    final devices = await deviceController.getDevices(userId);
     if (devices.isNotEmpty) {
       final deviceId = devices.first.deviceId;
       result = await RemoteService().fetchResults(deviceId);
@@ -51,7 +54,9 @@ class _HomeHistoryState extends State<HomeHistory> {
 
   fetchDailyDay(String date) async {
     final deviceController = DeviceController();
-    final devices = await deviceController.getDevices();
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getInt('userId');
+    final devices = await deviceController.getDevices(userId);
     if (devices.isEmpty) {
       setState(() {
         isLoaded = false;
@@ -91,7 +96,9 @@ class _HomeHistoryState extends State<HomeHistory> {
   var isLoaded = false;
   Future<void> _loadData() async {
     final deviceController = DeviceController();
-    final devices = await deviceController.getDevices();
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getInt('userId');
+    final devices = await deviceController.getDevices(userId);
     final controller = UserMedicalDataController();
     if (devices.isNotEmpty) {
       final deviceId =

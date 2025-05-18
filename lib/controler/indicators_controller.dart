@@ -5,12 +5,12 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class IndicatorController {
-  Future<IndicatorModel?> fetchIndicatorData() async {
+  Future<IndicatorModel?> fetchIndicatorData(final userId) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final userId = prefs.getInt(
-        'userId',
-      ); // Hoặc getString nếu userId là string
+      // final userId = prefs.getInt(
+      //   'userId',
+      // ); // Hoặc getString nếu userId là string
 
       if (userId == null) {
         print('User ID not found in SharedPreferences');

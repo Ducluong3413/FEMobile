@@ -28,7 +28,8 @@ class RemoteService {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getInt('userId');
     final deviceController = DeviceController();
-    final devices = await deviceController.getDevices();
+
+    final devices = await deviceController.getDevices(userId);
     // if (devices.isEmpty) {
     //   ScaffoldMessenger.of().showSnackBar(
     //     const SnackBar(content: Text('Không có thiết bị nào được kết nối')),

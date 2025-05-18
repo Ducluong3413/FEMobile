@@ -1,5 +1,6 @@
 import 'package:assistantstroke/controler/device_list_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DeviceListPage extends StatefulWidget {
   const DeviceListPage({super.key});
@@ -20,7 +21,9 @@ class _DeviceListPageState extends State<DeviceListPage> {
   }
 
   Future<void> _loadDevices() async {
-    final data = await controller.getDevices();
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getInt('userId');
+    final data = await controller.getDevices(userId);
     setState(() {
       devices = data;
       _isLoading = false;

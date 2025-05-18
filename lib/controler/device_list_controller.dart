@@ -27,25 +27,28 @@ class Device {
 }
 
 class DeviceController {
-  Future<List<Device>> getDevices() async {
+  Future<List<Device>> getDevices(final userId) async {
     final baseUrl = ApiEndpoints.get_devices;
     final prefs = await SharedPreferences.getInstance();
-    final userId = prefs.getInt('userId');
+    // final userId = prefs.getInt('userId');
     final token = prefs.getString('token');
 
     if (userId == null) return [];
 
     final url = Uri.parse('$baseUrl/$userId');
+    print(url);
     final res = await http.get(
       url,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        // 'Authorization': 'Bearer $token',
       },
     );
+    print(res.statusCode);
 
     if (res.statusCode == 200) {
       final List data = jsonDecode(res.body);
+      print(data);
       return data.map((e) => Device.fromJson(e)).toList();
     } else {
       return [];

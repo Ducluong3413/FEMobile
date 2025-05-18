@@ -8,6 +8,7 @@ import 'package:assistantstroke/model/indicatorModel.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_radar_chart/flutter_radar_chart.dart' as radar_chart;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -31,7 +32,9 @@ class _HomeViewState extends State<HomeView> {
 
   void _loadIndicatorData() async {
     final controller = IndicatorController();
-    final result = await controller.fetchIndicatorData();
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getInt('userId');
+    final result = await controller.fetchIndicatorData(userId);
 
     setState(() {
       indicatorData = result;
@@ -49,7 +52,9 @@ class _HomeViewState extends State<HomeView> {
 
   Future<void> _loadData() async {
     final deviceController = DeviceController();
-    final devices = await deviceController.getDevices();
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getInt('userId');
+    final devices = await deviceController.getDevices(userId);
     final controller = UserMedicalDataController();
     if (devices.isNotEmpty) {
       final deviceId =

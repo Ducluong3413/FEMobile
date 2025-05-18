@@ -1,3 +1,4 @@
+import 'package:assistantstroke/controler/user_gps_controller.dart';
 import 'package:assistantstroke/page/forget_password/home_forget_password.dart';
 import 'package:assistantstroke/page/login/home_login.dart';
 import 'package:assistantstroke/page/main_home/home_navbar.dart';
@@ -14,10 +15,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final gpsController = UserGpsController();
+
   @override
   void initState() {
     super.initState();
     _checkLoginStatus();
+    sendGps();
+  }
+
+  Future<void> sendGps() async {
+    await gpsController.sendUserGps();
   }
 
   Future<void> _checkLoginStatus() async {
