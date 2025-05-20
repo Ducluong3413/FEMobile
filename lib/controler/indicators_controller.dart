@@ -27,7 +27,9 @@ class IndicatorController {
           'Authorization': 'Bearer ${prefs.getString('token')}',
         },
       );
+      print('response indicator: ${response.body}');
       if (response.statusCode == 200) {
+        print('done');
         final data = json.decode(response.body);
         return IndicatorModel.fromJson(data);
       } else {

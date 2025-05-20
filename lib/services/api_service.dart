@@ -1,6 +1,7 @@
 class ApiEndpoints {
   // static const String baseUrl = "http://localhost:5062/api";
-  static const String baseUrl = "http://localhost:5062/api"; //iphone
+  // static const String baseUrl = "http://localhost:5062/api"; //iphone
+  static const String baseUrl = "http://27.69.254.37:5062/api"; //iphone
   // static const String baseUrl = "http://171.251.5.68:5062/api"; //iphone
   // static const String baseUrl = "http://137.59.106.46:5000/api"; //iphone
   // static const String baseUrl =

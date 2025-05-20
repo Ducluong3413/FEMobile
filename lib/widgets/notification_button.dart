@@ -11,18 +11,19 @@ class NotificationButton extends StatelessWidget {
     return Consumer<NotificationProvider>(
       builder: (context, provider, _) {
         final unreadCount = provider.unreadCount;
-
         return Stack(
           children: [
             IconButton(
               icon: const Icon(Icons.notifications),
-              onPressed:
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const NotificationsScreen(),
-                    ),
+              onPressed: () {
+                print('Điều hướng đến NotificationsScreen');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const NotificationsScreen(),
                   ),
+                );
+              },
             ),
             if (unreadCount > 0)
               Positioned(

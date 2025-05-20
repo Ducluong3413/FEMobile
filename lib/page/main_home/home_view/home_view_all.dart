@@ -99,10 +99,10 @@ class _HealthDashboardState extends State<HealthDashboard> {
         });
       }
     } else {
-      print('userId: null');
       final deviceController = DeviceController();
       final prefs = await SharedPreferences.getInstance();
       final userId = prefs.getInt('userId');
+      print('userId: $userId');
       final devices = await deviceController.getDevices(userId);
       if (devices.isEmpty) {
         setState(() {
@@ -121,6 +121,7 @@ class _HealthDashboardState extends State<HealthDashboard> {
         // Fetch all data concurrently
         final medicalController = UserMedicalDataController();
         final indicatorController = IndicatorController();
+
         final remoteService = RemoteService();
         final dailyController = RemoteDailyController();
         final a = await medicalController.fetchUserMedicalData(deviceId);

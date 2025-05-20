@@ -9,6 +9,13 @@
 <string>Ứng dụng cần quyền truy cập vị trí để tìm bệnh viện ngay cả khi chạy nền.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need access to your camera to scan QR codes</string>
+	
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>http</string>
+		<string>https</string>
+		<string>tel</string>
+	</array>
 
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>

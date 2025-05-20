@@ -41,15 +41,14 @@ class DeviceController {
       url,
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $token',
       },
     );
-    print(res.statusCode);
+    print(res.body);
 
     if (res.statusCode == 200) {
-      final List data = jsonDecode(res.body);
-      print(data);
-      return data.map((e) => Device.fromJson(e)).toList();
+      final List<dynamic> json = jsonDecode(res.body); // Decode as a list
+      return json.map((e) => Device.fromJson(e)).toList();
     } else {
       return [];
     }

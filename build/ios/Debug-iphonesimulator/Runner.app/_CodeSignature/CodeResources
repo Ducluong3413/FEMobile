@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		5Mj8aBAkhbiJlJ8BC5gG8CM6LYI=
+		ricaThx/vYGYsezQ5Ct/4ZN0zYY=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		K8AeTN1S1L1dLe8Y0JxgbUt87B8=
+		tSJ8D/JBnrqTM5evCD3j0K41XRc=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<data>
@@ -70,7 +70,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/NOTICES.Z</key>
 		<data>
-		O+gY2VEyeRLQApOw7Ir9ff+Obu4=
+		eM+bn/SmIKJyCkZmLM30p3rb1xk=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/NativeAssetsManifest.json</key>
 		<data>
@@ -106,7 +106,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		svkHY+VPyda64tmI78TA17YZ16k=
+		vQMppPDxZ62qHtVIE+i/mP4K2zI=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -492,6 +492,26 @@
 		<data>
 		6uLTlq7fgHHWA8emYDf4ImHC+AY=
 		</data>
+		<key>Frameworks/url_launcher_ios.framework/Info.plist</key>
+		<data>
+		Flzjsb3fXwPlcd5WZpy5t8uWBJg=
+		</data>
+		<key>Frameworks/url_launcher_ios.framework/_CodeSignature/CodeResources</key>
+		<data>
+		jlLSrUWGfozcZR7eg6axA+1g1Pw=
+		</data>
+		<key>Frameworks/url_launcher_ios.framework/url_launcher_ios</key>
+		<data>
+		7EEAsR+oKUl9fSCnaQNMxDqfJsA=
+		</data>
+		<key>Frameworks/url_launcher_ios.framework/url_launcher_ios_privacy.bundle/Info.plist</key>
+		<data>
+		XltQrDFCaXRADbmDytedsxltwtU=
+		</data>
+		<key>Frameworks/url_launcher_ios.framework/url_launcher_ios_privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		/LX0ZlwxwIAIhjZaDB8EiH5KpXA=
+		</data>
 		<key>Frameworks/video_player_avfoundation.framework/Info.plist</key>
 		<data>
 		IXd6Wvo2POk+HHsz9CSyGkQa0/4=
@@ -518,7 +538,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		3jcS8eE2JlBdFeCGdDqk+Bnnv44=
+		oHpvlFIKQSJO57v56vtWMg5m5j0=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -526,7 +546,7 @@
 		</data>
 		<key>Runner.debug.dylib</key>
 		<data>
-		E+IskyONDeN32Z8PTBS2GJc6jiw=
+		CTvR7rxhzBoLVVXEOIw1O4+2zmc=
 		</data>
 		<key>__preview.dylib</key>
 		<data>
@@ -621,7 +641,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			yAKbiZXp2MKzlW2MAGgztlmPArKjsT4prMkPLUzfEE4=
+			5eZPELEnyv5psf4jVVTkv8cFDORUpyV9b4Bjo6+/E+A=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -635,7 +655,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Xs2qMa2wfNLdEtRb5EUgZzNLjS8VUKrrifaFtHKHOS4=
+			su0rfptc56aODziFUAJQCrbtO+f5J6pmXPjqbFtF11E=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
@@ -663,7 +683,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			wEgSWcGsyvG722Nh/YjcpMA69A3gbRj8/WrNPtKUcGc=
+			IKzeVHp9G5Pn5e/4tI43/y4HLS4xQuShd6WZTXTpxdI=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/NativeAssetsManifest.json</key>
@@ -726,7 +746,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			WNjYiGHLLf0tbmSrBQUsZbiqegRqh6SVC/iDgQgYgOI=
+			93HLrKHVwpJtEuRETK4Om60jY3sBXq+F6PkKSFQzIiI=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
@@ -1401,6 +1421,41 @@
 			BWQouTi9VwGKYAGdFcPB7i+nJ/I2h1mLu9k0hIsYCxo=
 			</data>
 		</dict>
+		<key>Frameworks/url_launcher_ios.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			PVsyPUOABkLgB4jeVD1men6Xy9W+GottLsTo2xp0c50=
+			</data>
+		</dict>
+		<key>Frameworks/url_launcher_ios.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			dXy8KnesNold1DE7iQbYqqEqSgxC+zK5utYTht2jgps=
+			</data>
+		</dict>
+		<key>Frameworks/url_launcher_ios.framework/url_launcher_ios</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			UJ7UprA7P8UHnPAzGG9txLKVM+Ckc95ptGR2zda3eJg=
+			</data>
+		</dict>
+		<key>Frameworks/url_launcher_ios.framework/url_launcher_ios_privacy.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			j0erFMA3RqYVfaFmiDqA2BLC3F8uMHB89yJXJOvqKkg=
+			</data>
+		</dict>
+		<key>Frameworks/url_launcher_ios.framework/url_launcher_ios_privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			bS2g2NkwIn1CjB2TY7CtbjoS4sm2jFzilxWKdBL8jDE=
+			</data>
+		</dict>
 		<key>Frameworks/video_player_avfoundation.framework/Info.plist</key>
 		<dict>
 			<key>hash2</key>
@@ -1447,7 +1502,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			FKQhAcY13U6JcZ2kBfcO0K7LrUVdjoubR/MqhxWbvgU=
+			kwzXLAB46q8DvAhMWYoZBIfVzqboor272Hu9qbjC97s=
 			</data>
 		</dict>
 		<key>__preview.dylib</key>
