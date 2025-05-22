@@ -427,7 +427,6 @@ class _HealthDashboardState extends State<HealthDashboard> {
       medicalData?.dataPercent?['systolicPressure'] ?? 0.0,
       medicalData?.dataPercent?['diastolicPressure'] ?? 0.0,
     ];
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -439,7 +438,7 @@ class _HealthDashboardState extends State<HealthDashboard> {
         SizedBox(
           height: 250,
           child: radar_chart.RadarChart.light(
-            ticks: const [0, 1, 2, 3, 4],
+            ticks: const [0, 2, 4, 6, 8, 10],
             features: const [
               'NHIỆT ĐỘ',
               'SPO2',
