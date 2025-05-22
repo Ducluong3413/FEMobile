@@ -1,3 +1,4 @@
+import 'package:assistantstroke/controler/buttonwarning.dart';
 import 'package:assistantstroke/controler/data/averageall14day_controller.dart';
 import 'package:assistantstroke/controler/data/dailyDay_controller.dart';
 import 'package:assistantstroke/controler/device_list_controller.dart';
@@ -14,6 +15,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_radar_chart/flutter_radar_chart.dart' as radar_chart;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HealthDashboard extends StatefulWidget {
   @override
@@ -37,6 +39,71 @@ class _HealthDashboardState extends State<HealthDashboard> {
     super.initState();
     _loadAllData();
     _loadFamilyMembers();
+  }
+
+  void checkStrokeRiskAndShowDialog(BuildContext context, double strokeRate) {
+    if (strokeRate > 50) {
+      showDialog(
+        context: context,
+        builder:
+            (context) => AlertDialog(
+              backgroundColor: const Color.fromARGB(
+                255,
+                240,
+                196,
+                2,
+              ), // Nền vàng cảnh báo
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Cảnh báo'),
+                  IconButton(
+                    icon: const Icon(Icons.close, color: Colors.black),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+              content: const Text(
+                'Bạn đang có tỷ lệ đột quỵ > 50%. Có thể bạn đang gặp nguy hiểm. Bạn cần đến ngay cơ sở y tế gần nhất để thăm khám.',
+                style: TextStyle(color: Colors.black),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    sendAlert();
+                  },
+                  child: const Text('Gửi cảnh báo'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    callEmergency();
+                  },
+                  child: const Text('Gọi cấp cứu'),
+                ),
+              ],
+            ),
+      );
+    }
+  }
+
+  final ButtonWarning buttonWarningController = ButtonWarning();
+
+  void sendAlert() async {
+    print("📨 Gửi cảnh báo...");
+    await buttonWarningController.sendWarning();
+  }
+
+  void callEmergency() async {
+    const emergencyNumber = 'tel:115';
+    if (await canLaunch(emergencyNumber)) {
+      await launch(emergencyNumber);
+    } else {
+      print('Không thể gọi số cấp cứu');
+    }
   }
 
   Future<void> _loadAllData({int? familyUserId}) async {
@@ -109,6 +176,10 @@ class _HealthDashboardState extends State<HealthDashboard> {
       late final dynamic indicatorData;
       try {
         indicatorData = await indicatorController.fetchIndicatorData(userId);
+        checkStrokeRiskAndShowDialog(
+          context,
+          indicatorData?.percent?.toDouble() ?? 0.0,
+        );
         print('b: $indicatorData');
       } catch (e) {
         print('❌ Lỗi khi lấy dữ liệu indicator: $e');

@@ -75,4 +75,5 @@ class ApiEndpoints {
   //warning
   static const String postWarning =
       "$baseUrl/Warning/device-reading"; //http://171.251.5.68:5062/api/Warning/device-reading
+  static const String send_warning = "$baseUrl/EmergencyButton/activate";
 }
