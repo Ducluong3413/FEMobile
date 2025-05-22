@@ -103,11 +103,23 @@ class _HealthDashboardState extends State<HealthDashboard> {
       final prefs = await SharedPreferences.getInstance();
       final userId = prefs.getInt('userId');
       print('userId: $userId');
+
+      // 🔹 Gọi indicator trước vì không phụ thuộc device
+      final indicatorController = IndicatorController();
+      late final dynamic indicatorData;
+      try {
+        indicatorData = await indicatorController.fetchIndicatorData(userId);
+        print('b: $indicatorData');
+      } catch (e) {
+        print('❌ Lỗi khi lấy dữ liệu indicator: $e');
+      }
+
       final devices = await deviceController.getDevices(userId);
       if (devices.isEmpty) {
         setState(() {
           isLoading = false;
           isLoaded = false;
+          this.indicatorData = indicatorData; // vẫn hiển thị nếu muốn
         });
         ScaffoldMessenger.of(
           context,
@@ -118,44 +130,27 @@ class _HealthDashboardState extends State<HealthDashboard> {
       final deviceId = devices.first.deviceId;
 
       try {
-        // Fetch all data concurrently
         final medicalController = UserMedicalDataController();
-        final indicatorController = IndicatorController();
-
         final remoteService = RemoteService();
-        final dailyController = RemoteDailyController();
-        final a = await medicalController.fetchUserMedicalData(deviceId);
-        print('a: $a');
 
-        final b = await indicatorController.fetchIndicatorData(userId);
-        print('b: $b');
-        final c = await remoteService.fetchResults(deviceId);
-        print('c: $c');
-        // final [
-        //   fetchedMedicalData,
-        //   fetchedIndicatorData,
-        //   fetchedResults,
-        // ] = await Future.wait([
-        //   medicalController.fetchUserMedicalData(deviceId),
-        //   indicatorController.fetchIndicatorData(),
-        //   remoteService.fetchResults(deviceId),
-        // ]);
+        final medicalData = await medicalController.fetchUserMedicalData(
+          deviceId,
+        );
+        final results = await remoteService.fetchResults(deviceId);
 
         setState(() {
-          medicalData = a;
-          indicatorData = b;
-          results = c;
+          this.medicalData = medicalData;
+          this.indicatorData = indicatorData;
+          this.results = results;
           isLoading = false;
           isLoaded = true;
-          print('medicalData: $medicalData');
-          print('indicatorData: $indicatorData');
-          print('results: $results');
         });
       } catch (e) {
-        print('Lỗi: $e');
+        print('❌ Lỗi khi lấy dữ liệu thiết bị: $e');
         setState(() {
           isLoading = false;
           isLoaded = false;
+          this.indicatorData = indicatorData; // giữ lại phần đã load được
         });
       }
     }

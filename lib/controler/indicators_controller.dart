@@ -27,6 +27,7 @@ class IndicatorController {
           'Authorization': 'Bearer ${prefs.getString('token')}',
         },
       );
+      print('url: $response');
       print('response indicator: ${response.body}');
       if (response.statusCode == 200) {
         print('done');

@@ -10,6 +10,7 @@ class ApiEndpoints {
   //     "http://116.105.31.119:5062/api"; // Nếu chạy trên Android Emulator
   static const String chatbot =
       "https://ronmanhwa.app.n8n.cloud/webhook/c06e7c6d-be67-4e4b-ac71-3781fdaea258/chat"; //iphone
+  //https://strockerai.app.n8n.cloud/webhook/9f8e4a1a-3c19-48e1-ad90-f1efed1d7dce/chat
 
   // Auth
   static const String login = "$baseUrl/User/login";
@@ -47,6 +48,7 @@ class ApiEndpoints {
       "$baseUrl/Invition/delete-relationship";
   //device
   static const String get_devices = "$baseUrl/Devices/get-devices";
+  static const String add_devices = "$baseUrl/Devices/add-device";
   static const String delete_devices = "$baseUrl/Devices/delete-device";
 
   // Example thêm endpoint khác

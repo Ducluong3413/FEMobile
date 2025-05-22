@@ -30,7 +30,6 @@ class DeviceController {
   Future<List<Device>> getDevices(final userId) async {
     final baseUrl = ApiEndpoints.get_devices;
     final prefs = await SharedPreferences.getInstance();
-    // final userId = prefs.getInt('userId');
     final token = prefs.getString('token');
 
     if (userId == null) return [];
@@ -49,16 +48,22 @@ class DeviceController {
     if (res.statusCode == 200) {
       final body = res.body.trim();
 
-      if (body == '[]') {
-        // Trường hợp không có thiết bị nào
+      if (body.isEmpty) {
         return [];
       }
 
       try {
-        final List<dynamic> json = jsonDecode(body);
-        return json.map((e) => Device.fromJson(e)).toList();
+        final Map<String, dynamic> decoded = jsonDecode(body);
+
+        if (decoded.containsKey('devices') && decoded['devices'] is List) {
+          final List<dynamic> devicesJson = decoded['devices'];
+
+          return devicesJson.map((e) => Device.fromJson(e)).toList();
+        } else {
+          print('Không tìm thấy key devices hoặc không phải danh sách');
+          return [];
+        }
       } catch (e) {
-        // Trường hợp body không đúng định dạng JSON danh sách
         print('Lỗi parse JSON: $e');
         return [];
       }

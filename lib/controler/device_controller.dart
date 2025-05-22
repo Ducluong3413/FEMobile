@@ -1,3 +1,4 @@
+import 'package:assistantstroke/services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -12,7 +13,7 @@ class DeviceController {
   }) async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getInt('userId');
-
+    final url = ApiEndpoints.add_devices;
     if (userId == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -31,7 +32,9 @@ class DeviceController {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:5062/api/Devices/add-device'),
+        Uri.parse('$url'),
+
+        // Uri.parse('http://localhost:5062/api/Devices/add-device'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${prefs.getString('token')}',
