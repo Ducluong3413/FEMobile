@@ -122,26 +122,55 @@ class SubclinicalIndicator {
   }
 }
 
+// class IndicatorModelAll {
+//   final ClinicalIndicator clinicalIndicator;
+//   final MolecularIndicator molecularIndicator;
+//   final SubclinicalIndicator subclinicalIndicator;
+
+//   IndicatorModelAll({
+//     required this.clinicalIndicator,
+//     required this.molecularIndicator,
+//     required this.subclinicalIndicator,
+//   });
+
+//   factory IndicatorModelAll.fromJson(Map<String, dynamic> json) {
+//     print(json);
+//     return IndicatorModelAll(
+//       clinicalIndicator: ClinicalIndicator.fromJson(json['clinicalIndicator']),
+//       molecularIndicator: MolecularIndicator.fromJson(
+//         json['molecularIndicator'],
+//       ),
+//       subclinicalIndicator: SubclinicalIndicator.fromJson(
+//         json['subclinicalIndicator'],
+//       ),
+//     );
+//   }
+// }
 class IndicatorModelAll {
-  final ClinicalIndicator clinicalIndicator;
-  final MolecularIndicator molecularIndicator;
-  final SubclinicalIndicator subclinicalIndicator;
+  final ClinicalIndicator? clinicalIndicator;
+  final MolecularIndicator? molecularIndicator;
+  final SubclinicalIndicator? subclinicalIndicator;
 
   IndicatorModelAll({
-    required this.clinicalIndicator,
-    required this.molecularIndicator,
-    required this.subclinicalIndicator,
+    this.clinicalIndicator,
+    this.molecularIndicator,
+    this.subclinicalIndicator,
   });
 
   factory IndicatorModelAll.fromJson(Map<String, dynamic> json) {
     return IndicatorModelAll(
-      clinicalIndicator: ClinicalIndicator.fromJson(json['clinicalIndicator']),
-      molecularIndicator: MolecularIndicator.fromJson(
-        json['molecularIndicator'],
-      ),
-      subclinicalIndicator: SubclinicalIndicator.fromJson(
-        json['subclinicalIndicator'],
-      ),
+      clinicalIndicator:
+          json['clinicalIndicator'] != null
+              ? ClinicalIndicator.fromJson(json['clinicalIndicator'])
+              : null,
+      molecularIndicator:
+          json['molecularIndicator'] != null
+              ? MolecularIndicator.fromJson(json['molecularIndicator'])
+              : null,
+      subclinicalIndicator:
+          json['subclinicalIndicator'] != null
+              ? SubclinicalIndicator.fromJson(json['subclinicalIndicator'])
+              : null,
     );
   }
 }

@@ -46,6 +46,18 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
       return;
     }
 
+    final passwordRegex = RegExp(r'^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$');
+    if (!passwordRegex.hasMatch(password)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Mật khẩu phải có ít nhất 8 ký tự, bao gồm số và chữ in hoa.',
+          ),
+        ),
+      );
+      return;
+    }
+
     setState(() => _isLoading = true);
 
     // Gọi API xử lý ở đây nếu cần, ví dụ:

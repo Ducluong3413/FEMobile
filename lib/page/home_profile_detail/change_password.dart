@@ -29,30 +29,87 @@ class _ChangePassword extends State<ChangePassword> {
   final TextEditingController Re_passwordnew = TextEditingController();
   bool _isLoading = false;
 
+  // void _handlpasword() async {
+  //   String password = Password.text.trim();
+  //   String passwordnew = Passwordnew.text.trim();
+  //   String re_passwordnew = Re_passwordnew.text.trim();
+  //   print('$passwordnew / $password / $re_passwordnew');
+
+  //   if (passwordnew.isEmpty || password.isEmpty || re_passwordnew.isEmpty) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Vui lòng nhập đầy đủ thông tin.')),
+  //     );
+  //     return;
+  //   }
+
+  //   if (passwordnew != re_passwordnew) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Mật khẩu không trùng khớp.')),
+  //     );
+  //     return;
+  //   }
+
+  //   setState(() => _isLoading = true);
+
+  //   // Gọi API xử lý ở đây nếu cần, ví dụ:
+  //   // bool success = await SomeController.resetPassword(otp: a, password: b);
+
+  //   NewChangePassword forgotController = NewChangePassword(
+  //     password: password,
+  //     passwordnew: passwordnew,
+  //   );
+  //   bool success = await forgotController.forgot(context);
+
+  //   setState(() => _isLoading = false);
+
+  //   if (success) {
+  //     print('Đổi mật khẩu thành công');
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder:
+  //             (context) => HomeProfile(
+  //               onLogout: () {
+  //                 Navigator.pushReplacementNamed(context, '/login');
+  //               },
+  //             ),
+  //       ),
+  //     );
+  //   }
+  // }
   void _handlpasword() async {
     String password = Password.text.trim();
     String passwordnew = Passwordnew.text.trim();
     String re_passwordnew = Re_passwordnew.text.trim();
-    print('$passwordnew / $password / $re_passwordnew');
 
-    if (passwordnew.isEmpty || password.isEmpty || re_passwordnew.isEmpty) {
+    final RegExp passwordRegex = RegExp(r'^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$');
+
+    if (password.isEmpty || passwordnew.isEmpty || re_passwordnew.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Vui lòng nhập đầy đủ thông tin.')),
       );
       return;
     }
 
+    if (!passwordRegex.hasMatch(passwordnew)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Mật khẩu mới phải có ít nhất 8 ký tự, bao gồm chữ hoa và số.',
+          ),
+        ),
+      );
+      return;
+    }
+
     if (passwordnew != re_passwordnew) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Mật khẩu không trùng khớp.')),
+        const SnackBar(content: Text('Mật khẩu mới không trùng khớp.')),
       );
       return;
     }
 
     setState(() => _isLoading = true);
-
-    // Gọi API xử lý ở đây nếu cần, ví dụ:
-    // bool success = await SomeController.resetPassword(otp: a, password: b);
 
     NewChangePassword forgotController = NewChangePassword(
       password: password,

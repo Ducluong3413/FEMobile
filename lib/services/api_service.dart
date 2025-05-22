@@ -66,4 +66,11 @@ class ApiEndpoints {
       "$mobileNotifications/user/$userId";
   static String markAsRead(String notificationId) =>
       "$mobileNotifications/$notificationId/read";
+  // Data medical
+  static const String postMedicalData = "$baseUrl/UserMedicalDatas/medicaldata";
+  //EmergencyButton
+  static const String emergencyButton = "$baseUrl/EmergencyButton/activate";
+  //warning
+  static const String postWarning =
+      "$baseUrl/Warning/device-reading"; //http://171.251.5.68:5062/api/Warning/device-reading
 }

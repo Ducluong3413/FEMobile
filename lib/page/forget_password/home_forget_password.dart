@@ -23,6 +23,59 @@ class _RegisterScreenState extends State<SignUp> {
 
   bool _isLoading = false;
 
+  // void _handleSign() async {
+  //   String username = _fullNameController.text.trim();
+  //   String email = _emailController.text.trim();
+  //   String phone = _phoneController.text.trim();
+  //   String password = _passwordController.text.trim();
+  //   String re_password = _rePasswordController.text.trim();
+  //   String dob = _dobController.text.trim();
+  //   String sex = _sexController.text.trim();
+
+  //   if (username.isEmpty ||
+  //       password.isEmpty ||
+  //       email.isEmpty ||
+  //       phone.isEmpty ||
+  //       dob.isEmpty) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(
+  //         content: Text('Vui lòng nhập email hoặc số điện thoại và mật khẩu'),
+  //       ),
+  //     );
+  //     return;
+  //   } else if (password != re_password) {
+  //     ScaffoldMessenger.of(
+  //       context,
+  //     ).showSnackBar(const SnackBar(content: Text('Mật khẩu không khớp')));
+  //     return;
+  //   }
+
+  //   setState(() => _isLoading = true);
+
+  //   // Pass data to LoginController
+  //   SignController signController = SignController(
+  //     username: username,
+  //     email: email,
+  //     phone: phone,
+  //     password: password,
+  //     dob: dob,
+  //     sex: sex,
+  //   );
+  //   await signController.sign(context); // Call login method
+  //   // Truyền dữ liệu sang OtpController
+  //   // OtpController otpController = OtpController(
+  //   //   otp: otp, // Bạn sẽ có OTP từ màn hình OTP
+  //   //   username: username,
+  //   //   email: email,
+  //   //   phone: phone,
+  //   //   password: password,
+  //   //   dob: dob,
+  //   //   sex: sex,
+  //   // );
+  //   // await otpController.Otp(context); // Gọi phương thức OTP
+
+  //   setState(() => _isLoading = false);
+  // }
   void _handleSign() async {
     String username = _fullNameController.text.trim();
     String email = _emailController.text.trim();
@@ -32,18 +85,45 @@ class _RegisterScreenState extends State<SignUp> {
     String dob = _dobController.text.trim();
     String sex = _sexController.text.trim();
 
+    final RegExp passwordRegex = RegExp(r'^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$');
+    final RegExp phoneRegex = RegExp(r'^\d{10}$');
+    final RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
     if (username.isEmpty ||
         password.isEmpty ||
         email.isEmpty ||
         phone.isEmpty ||
         dob.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Vui lòng nhập đầy đủ thông tin')),
+      );
+      return;
+    }
+
+    if (!emailRegex.hasMatch(email)) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Email không hợp lệ')));
+      return;
+    }
+
+    if (!phoneRegex.hasMatch(phone)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Vui lòng kiểm tra lại số điện thoại')),
+      );
+      return;
+    }
+
+    if (!passwordRegex.hasMatch(password)) {
+      ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Vui lòng nhập email hoặc số điện thoại và mật khẩu'),
+          content: Text('Mật khẩu tối thiểu có 8 ký tự, gồm số và chữ in hoa'),
         ),
       );
       return;
-    } else if (password != re_password) {
+    }
+
+    if (password != re_password) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('Mật khẩu không khớp')));
@@ -52,7 +132,6 @@ class _RegisterScreenState extends State<SignUp> {
 
     setState(() => _isLoading = true);
 
-    // Pass data to LoginController
     SignController signController = SignController(
       username: username,
       email: email,
@@ -61,18 +140,8 @@ class _RegisterScreenState extends State<SignUp> {
       dob: dob,
       sex: sex,
     );
-    await signController.sign(context); // Call login method
-    // Truyền dữ liệu sang OtpController
-    // OtpController otpController = OtpController(
-    //   otp: otp, // Bạn sẽ có OTP từ màn hình OTP
-    //   username: username,
-    //   email: email,
-    //   phone: phone,
-    //   password: password,
-    //   dob: dob,
-    //   sex: sex,
-    // );
-    // await otpController.Otp(context); // Gọi phương thức OTP
+
+    await signController.sign(context);
 
     setState(() => _isLoading = false);
   }

@@ -18,12 +18,13 @@ class IndicatorControllerAll {
         url,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${prefs.getString('token')}',
+          'Authorization': 'Bearer $token',
         },
       );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+        print(data);
         return IndicatorModelAll.fromJson(data);
       } else {
         print('Failed to load data: ${response.statusCode}');

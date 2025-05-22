@@ -47,8 +47,21 @@ class DeviceController {
     print(res.body);
 
     if (res.statusCode == 200) {
-      final List<dynamic> json = jsonDecode(res.body); // Decode as a list
-      return json.map((e) => Device.fromJson(e)).toList();
+      final body = res.body.trim();
+
+      if (body == '[]') {
+        // Trường hợp không có thiết bị nào
+        return [];
+      }
+
+      try {
+        final List<dynamic> json = jsonDecode(body);
+        return json.map((e) => Device.fromJson(e)).toList();
+      } catch (e) {
+        // Trường hợp body không đúng định dạng JSON danh sách
+        print('Lỗi parse JSON: $e');
+        return [];
+      }
     } else {
       return [];
     }

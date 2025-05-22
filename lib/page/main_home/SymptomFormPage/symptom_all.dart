@@ -58,43 +58,56 @@ class _IndicatorViewState extends State<IndicatorView> {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                buildIndicatorSection('Chỉ số lâm sàng', {
-                  'Đau đầu': data.clinicalIndicator.dauDau,
-                  'Tê mặt chi': data.clinicalIndicator.teMatChi,
-                  'Chóng mặt': data.clinicalIndicator.chongMat,
-                  'Khó nói': data.clinicalIndicator.khoNoi,
-                  'Mất trí nhớ tạm thời':
-                      data.clinicalIndicator.matTriNhoTamThoi,
-                  'Lú lẫn': data.clinicalIndicator.luLan,
-                  'Giảm thị lực': data.clinicalIndicator.giamThiLuc,
-                  'Mất thăng cân': data.clinicalIndicator.matThangCan,
-                  'Buồn nôn': data.clinicalIndicator.buonNon,
-                  'Khó nuốt': data.clinicalIndicator.khoNuot,
-                }),
-                buildIndicatorSection('Chỉ số phân tử', {
-                  'miR_30e_5p': data.molecularIndicator.miR_30e_5p,
-                  'miR_16_5p': data.molecularIndicator.miR_16_5p,
-                  'miR_140_3p': data.molecularIndicator.miR_140_3p,
-                  'miR_320d': data.molecularIndicator.miR_320d,
-                  'miR_320p': data.molecularIndicator.miR_320p,
-                  'miR_20a_5p': data.molecularIndicator.miR_20a_5p,
-                  'miR_26b_5p': data.molecularIndicator.miR_26b_5p,
-                  'miR_19b_5p': data.molecularIndicator.miR_19b_5p,
-                  'miR_874_5p': data.molecularIndicator.miR_874_5p,
-                  'miR_451a': data.molecularIndicator.miR_451a,
-                }),
-                buildIndicatorSection('Chỉ số cận lâm sàng', {
-                  'S100B': data.subclinicalIndicator.s100B,
-                  'MMP9': data.subclinicalIndicator.mmP9,
-                  'GFAP': data.subclinicalIndicator.gfap,
-                  'RBP4': data.subclinicalIndicator.rbP4,
-                  'NT_proBNP': data.subclinicalIndicator.nT_proBNP,
-                  'sRAGE': data.subclinicalIndicator.sRAGE,
-                  'D-Dimer': data.subclinicalIndicator.d_dimer,
-                  'Lipids': data.subclinicalIndicator.lipids,
-                  'Protein': data.subclinicalIndicator.protein,
-                  'Von Willebrand': data.subclinicalIndicator.vonWillebrand,
-                }),
+                if (data.clinicalIndicator != null)
+                  () {
+                    final clinical = data.clinicalIndicator!;
+                    return buildIndicatorSection('Chỉ số lâm sàng', {
+                      'Đau đầu': clinical.dauDau,
+                      'Tê mặt chi': clinical.teMatChi,
+                      'Chóng mặt': clinical.chongMat,
+                      'Khó nói': clinical.khoNoi,
+                      'Mất trí nhớ tạm thời': clinical.matTriNhoTamThoi,
+                      'Lú lẫn': clinical.luLan,
+                      'Giảm thị lực': clinical.giamThiLuc,
+                      'Mất thăng cân': clinical.matThangCan,
+                      'Buồn nôn': clinical.buonNon,
+                      'Khó nuốt': clinical.khoNuot,
+                    });
+                  }(),
+
+                if (data.molecularIndicator != null)
+                  () {
+                    final molecular = data.molecularIndicator!;
+                    return buildIndicatorSection('Chỉ số phân tử', {
+                      'miR_30e_5p': molecular.miR_30e_5p,
+                      'miR_16_5p': molecular.miR_16_5p,
+                      'miR_140_3p': molecular.miR_140_3p,
+                      'miR_320d': molecular.miR_320d,
+                      'miR_320p': molecular.miR_320p,
+                      'miR_20a_5p': molecular.miR_20a_5p,
+                      'miR_26b_5p': molecular.miR_26b_5p,
+                      'miR_19b_5p': molecular.miR_19b_5p,
+                      'miR_874_5p': molecular.miR_874_5p,
+                      'miR_451a': molecular.miR_451a,
+                    });
+                  }(),
+
+                if (data.subclinicalIndicator != null)
+                  () {
+                    final subclinical = data.subclinicalIndicator!;
+                    return buildIndicatorSection('Chỉ số cận lâm sàng', {
+                      'S100B': subclinical.s100B,
+                      'MMP9': subclinical.mmP9,
+                      'GFAP': subclinical.gfap,
+                      'RBP4': subclinical.rbP4,
+                      'NT_proBNP': subclinical.nT_proBNP,
+                      'sRAGE': subclinical.sRAGE,
+                      'D-Dimer': subclinical.d_dimer,
+                      'Lipids': subclinical.lipids,
+                      'Protein': subclinical.protein,
+                      'Von Willebrand': subclinical.vonWillebrand,
+                    });
+                  }(),
               ],
             ),
           );
