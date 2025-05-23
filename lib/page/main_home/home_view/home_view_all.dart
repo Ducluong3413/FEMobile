@@ -420,13 +420,14 @@ class _HealthDashboardState extends State<HealthDashboard> {
 
   Widget _buildRadarChartSection() {
     final radarValues = [
-      medicalData?.dataPercent?['temperature'] ?? 0.0,
-      medicalData?.dataPercent?['spO2'] ?? 0.0,
-      medicalData?.dataPercent?['heartRate'] ?? 0.0,
-      medicalData?.dataPercent?['bloodPh'] ?? 0.0,
-      medicalData?.dataPercent?['systolicPressure'] ?? 0.0,
-      medicalData?.dataPercent?['diastolicPressure'] ?? 0.0,
+      (medicalData?.dataPercent?['temperature'] ?? 0.0) + 60,
+      (medicalData?.dataPercent?['spO2'] ?? 0.0) + 60,
+      (medicalData?.dataPercent?['heartRate'] ?? 0.0) + 60,
+      (medicalData?.dataPercent?['bloodPh'] ?? 0.0) + 60,
+      (medicalData?.dataPercent?['systolicPressure'] ?? 0.0) + 60,
+      (medicalData?.dataPercent?['diastolicPressure'] ?? 0.0) + 60,
     ];
+    print('Radar Values: $radarValues');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -437,8 +438,21 @@ class _HealthDashboardState extends State<HealthDashboard> {
         const SizedBox(height: 8),
         SizedBox(
           height: 250,
-          child: radar_chart.RadarChart.light(
-            ticks: const [0, 2, 4, 6, 8, 10],
+          // child: radar_chart.RadarChart.light(
+          //   ticks: const [0, 20, 40, 60, 80, 100],
+          //   features: const [
+          //     'NHIỆT ĐỘ',
+          //     'SPO2',
+          //     'MẠCH ĐẬP',
+          //     'PH',
+          //     'H.ÁP TÂM THU',
+          //     'H.ÁP TÂM TRƯƠNG',
+          //   ],
+          //   data: [radarValues],
+          //   reverseAxis: false,
+          // ),
+          child: radar_chart.RadarChart(
+            ticks: const [0, 20, 40, 60, 80, 100],
             features: const [
               'NHIỆT ĐỘ',
               'SPO2',
@@ -448,7 +462,13 @@ class _HealthDashboardState extends State<HealthDashboard> {
               'H.ÁP TÂM TRƯƠNG',
             ],
             data: [radarValues],
-            reverseAxis: false,
+            outlineColor: const Color.fromARGB(
+              255,
+              32,
+              70,
+              236,
+            ), // màu của vòng ngoài cùng (nếu dùng light)
+            graphColors: [Colors.red],
           ),
         ),
       ],

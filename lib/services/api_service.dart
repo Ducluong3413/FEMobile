@@ -49,7 +49,7 @@ class ApiEndpoints {
   //device
   static const String get_devices = "$baseUrl/Devices/get-devices";
   static const String add_devices = "$baseUrl/Devices/add-device";
-  static const String delete_devices = "$baseUrl/Devices/delete-device";
+  static const String delete_devices = "$baseUrl/Devices/delete-devices";
 
   // Example thêm endpoint khác
   static const String getPosts = "$baseUrl/Posts";

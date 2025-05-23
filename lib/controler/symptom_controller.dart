@@ -56,7 +56,7 @@ class SymptomController {
   Future<bool> saveSymptoms(SymptomModel model) async {
     final prefs = await SharedPreferences.getInstance();
     final int? userId = prefs.getInt("userId");
-
+    final String? token = prefs.getString("token");
     if (userId == null) {
       debugPrint("Không tìm thấy userId trong SharedPreferences");
       return false;
@@ -68,7 +68,7 @@ class SymptomController {
       Uri.parse(url),
       headers: {
         "Content-Type": "application/json",
-        'Authorization': 'Bearer ${prefs.getString('token')}',
+        'Authorization': 'Bearer $token',
       },
       body: jsonEncode(model.toJson(userId: userId, recordedAt: now)),
     );
